@@ -1,21 +1,8 @@
-// Copyright © 2018 NAME HERE <EMAIL ADDRESS>
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -23,26 +10,39 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var cfgFile, buildDate, buildVersion string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "backme",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "Backup files organizer.",
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long: `Quite often big files (like database dumps) are backed up on a
+ regular basis. Such backups become a disk space hogs and when time comes to
+ restoring data it is cumbersome to find the right file for the job. This
+ script checks files of a certain pattern and sorts them by date into daily
+ monthly, yearly directories, progressively deleting more and more of aged
+ files. For example it keeps all files from the last 24 hours, but keeps only
+ one file per day in the last 30 days, only one file per month for the first
+ 3 years, and after that only 1 file per year. As a result backup takes
+ significantly less space and it is easier to find a file from a specific
+ period of time.`,
+
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		versionFlag(cmd)
+
+		conf := getConfig()
+		_ = conf
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func Execute(v string, d string) {
+	buildVersion = v
+	buildDate = d
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -56,10 +56,11 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.backme.yaml)")
+	rootCmd.PersistentFlags().BoolP("version", "v", false, "Show build version and date")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	//rootCmd.Flags().BoolP("version", "v", false, "Show build version and date")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -85,5 +86,19 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	} else {
+		log.Println(err)
+	}
+}
+
+func versionFlag(cmd *cobra.Command) {
+	version, err := cmd.Flags().GetBool("version")
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	if version {
+		fmt.Printf("\nversion: %s\n\ndate:    %s\n\n", buildVersion, buildDate)
+		os.Exit(0)
 	}
 }
