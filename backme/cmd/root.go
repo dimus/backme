@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/dimus/backme"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -34,7 +35,11 @@ var rootCmd = &cobra.Command{
 		versionFlag(cmd)
 
 		conf := getConfig()
-		_ = conf
+		err := backme.Organize(conf)
+		if err != nil {
+			log.Println(err)
+			os.Exit(1)
+		}
 	},
 }
 
@@ -101,4 +106,26 @@ func versionFlag(cmd *cobra.Command) {
 		fmt.Printf("\nversion: %s\n\ndate:    %s\n\n", buildVersion, buildDate)
 		os.Exit(0)
 	}
+}
+
+func getConfig() *backme.Config {
+	conf := backme.NewConfig()
+	err := viper.Unmarshal(conf)
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+
+	err = backme.CheckConfig(conf)
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+
+	log.Println("Following backup directories are found:")
+	for i, v := range conf.InputDirs {
+		log.Printf("Backup dir %d: %s", i, v.Path)
+	}
+
+	return conf
 }

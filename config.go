@@ -1,12 +1,8 @@
-package cmd
+package backme
 
 import (
 	"errors"
 	"fmt"
-	"log"
-	"os"
-
-	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -20,28 +16,11 @@ type InputDir struct {
 	Files []string
 }
 
-func newConfig() *Config {
+func NewConfig() *Config {
 	return &Config{OutputDir: "backme"}
 }
 
-func getConfig() *Config {
-	conf := newConfig()
-	err := viper.Unmarshal(conf)
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-
-	err = checkConfig(conf)
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-
-	return conf
-}
-
-func checkConfig(conf *Config) error {
+func CheckConfig(conf *Config) error {
 	if len(conf.InputDirs) == 0 {
 		return errors.New("InputDirs must have at least one entry.")
 	}
