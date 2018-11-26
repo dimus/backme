@@ -1,0 +1,12 @@
+---
+logfile:
+outputDir:
+inputDirs:
+  - path: /home/dimus/tmp/backme1
+    fileRegexPatterns:
+      - "^backup"
+      - "^local"
+  - path: /home/dimus/tmp/backme2
+    fileRegexPatterns:
+      - "ackup"
+      - "ocal"

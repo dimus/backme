@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [v0.2.0]
+
+- Add [#5]: support multiple files regex patterns in one directory. It allows
+            to organize separate categories of files independently from each
+            other.
+
 ## [v0.1.0]
 
 - Add [#4]: move/delete files according to their groups
