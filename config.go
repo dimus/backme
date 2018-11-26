@@ -12,12 +12,12 @@ type Config struct {
 }
 
 type InputDir struct {
-	Path  string
-	Files []string
+	Path              string
+	FileRegexPatterns []string
 }
 
 func NewConfig() *Config {
-	return &Config{OutputDir: "backme"}
+	return &Config{OutputDir: "archive"}
 }
 
 func CheckConfig(conf *Config) error {
@@ -26,7 +26,7 @@ func CheckConfig(conf *Config) error {
 	}
 
 	for i, v := range conf.InputDirs {
-		if v.Path == "" || len(v.Files) == 0 {
+		if v.Path == "" || len(v.FileRegexPatterns) == 0 {
 			return fmt.Errorf("InputDirs[%d] must have both path and files set", i)
 		}
 	}

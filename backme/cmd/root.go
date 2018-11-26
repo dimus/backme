@@ -122,10 +122,14 @@ func getConfig() *backme.Config {
 		os.Exit(1)
 	}
 
-	log.Println("Following backup directories are found:")
+	log.Println("The following backup directories are in config:")
 	for i, v := range conf.InputDirs {
 		log.Printf("Backup dir %d: %s", i, v.Path)
+		if _, err := os.Stat(v.Path); os.IsNotExist(err) {
+			log.Printf("Directory %s does not exist, exiting...", v.Path)
+			os.Exit(1)
+		}
 	}
-
+	log.Println(backme.LogSep)
 	return conf
 }
