@@ -39,7 +39,8 @@ pattern in their name that corresponds to the date they were created:
 yyyy-mm-dd
 ```
 
-For example ``mybackup-2018-01-02.sql.tar.gz``.
+For example ``mybackup-2018-01-02.sql.tar.gz``. Otherwise files modification
+dates will be used instead.
 
 ## Usage
 

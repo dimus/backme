@@ -19,8 +19,10 @@
 
 This document follows [changelog guidelines]
 
-[v0.1.0]: https://github.com/dimus/backme/tree/v0.5.0
+[v0.2.0]: https://github.com/dimus/backme/compare/v0.1.0...v0.2.0
+[v0.1.0]: https://github.com/dimus/backme/tree/v0.1.0
 
+[#5]: https://github.com/dimus/backme/issues/5
 [#4]: https://github.com/dimus/backme/issues/4
 [#3]: https://github.com/dimus/backme/issues/3
 [#2]: https://github.com/dimus/backme/issues/2
