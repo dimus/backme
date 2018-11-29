@@ -4,8 +4,10 @@
 
 ## [v0.3.0]
 
+- Add [#7]: Sort files first by date in the file name (if present), then
+            by modification date.
 - Add [#6]: Optionally, do not delete any files, instead move them to an
-            ``archive/delete-me`` directory
+            ``archive/delete-me`` directory.
 
 ## [v0.2.0]
 

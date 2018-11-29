@@ -33,7 +33,13 @@ func yearsEntries(allEntries int, bins *CategorizedFiles) int {
 
 func processFileGroup(files []File, bins *CategorizedFiles) {
 	sort.Slice(files, func(i, j int) bool {
-		return files[i].SortingTime.After(files[j].SortingTime)
+		if files[i].SortingTime.After(files[j].SortingTime) {
+			return true
+		}
+		if files[i].SortingTime.Before(files[j].SortingTime) {
+			return false
+		}
+		return files[i].ModificationTime.After(files[j].ModificationTime)
 	})
 
 	twoDaysAgo := now.Add(-48 * time.Hour)
