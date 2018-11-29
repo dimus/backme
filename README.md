@@ -51,8 +51,9 @@ inputDirs:
 ```
 
 ``outputDir``
-: An optional setting (the default is ``archive``). It is the name of the backme's archive
-directories. They will be place inside of input directories.
+: An optional setting (the default is ``archive``). It is the name of the
+``backme's`` archive directories. They will be placed inside of input
+directories.
 
 ``inputDirs``
 : A list of directories where you keep backup files.
@@ -61,21 +62,21 @@ directories. They will be place inside of input directories.
 : The path to a backup directory
 
 ``inputDirs.fileRegexPatterns``
-: A list of regular expression patterns that allows to distinguish one or more
+: A list of regular expression patterns that allow to distinguish one or more
 series of backup files from other files. All files of such patterns will be
 used recursively inside of an input directory.
 
 ``inputDirs.keepAllFiles``
-: A optional boolean parameter (default is `false`). If `true` files that would
+: An optional boolean parameter (default is `false`). If `true` files that would
 be marked for deletion, will be place to 'delete-me' directory.
 
-## Finding out the date of a backup.
+## Finding out the date/time of a backup.
 
-There are two ways to learn when backup is done. First is by modification date.
-However moving backup to a new directory will reset this date, so it is not a
-bullet-proof solution.
+There are two ways to learn when backup is done. First is by modification
+timestamp. However moving backup to a new directory will reset this timestamp,
+so it is not a bullet-proof solution.
 
-To get better experience with partitioning files by time make sure your backup
+To get a better experience with partitioning files by time make sure your backup
 files contain the following pattern in their name that corresponds to the date
 they were created:
 
@@ -114,10 +115,10 @@ archive
   2018
 ```
 
-recent
+``recent``
 : files from the last 2 days. All existing files from this period are preserved.
 
-last-month
+``last-month``
 : files from the last 31 day, only one file per day is preserved.
 
 ``yyyy`` (``2015`` for example)
