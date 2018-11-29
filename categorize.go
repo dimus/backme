@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func categorizeFiles(filesRegexMap map[string][]File) *CategorizedFiles {
+func categorizeFiles(filesRegexMap map[string][]File, keepFiles bool) *CategorizedFiles {
 	bins := &CategorizedFiles{Years: make(map[int][]File)}
 	allEntries := 0
 	for k, v := range filesRegexMap {
@@ -15,9 +15,12 @@ func categorizeFiles(filesRegexMap map[string][]File) *CategorizedFiles {
 		log.Printf("Found %d entries.", len(v))
 		processFileGroup(v, bins)
 	}
-
-	log.Printf("Total: %d entries, %d to delete, %d recent, %d from the last month, %d from all years",
-		allEntries, len(bins.GarbageFiles), len(bins.Recent),
+	deleteString := "to delete"
+	if keepFiles {
+		deleteString = "to delete-me dir"
+	}
+	log.Printf("Total: %d entries, %d %s, %d recent, %d from the last month, %d from all years",
+		allEntries, len(bins.GarbageFiles), deleteString, len(bins.Recent),
 		len(bins.LastMonth), yearsEntries(allEntries, bins))
 	log.Println(LogSep)
 	return bins

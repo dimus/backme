@@ -48,7 +48,7 @@ func organizeDir(dirIndex int, conf *Config) error {
 		return err
 	}
 	log.Println(LogSep)
-	bins := categorizeFiles(filesRegexMap)
+	bins := categorizeFiles(filesRegexMap, dir.KeepAllFiles)
 	err = moveFiles(&dir, bins, conf)
 	return err
 }

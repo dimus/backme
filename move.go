@@ -15,8 +15,16 @@ func moveFiles(dir *InputDir, bins *CategorizedFiles, conf *Config) error {
 		return err
 	}
 
-	for _, v := range bins.GarbageFiles {
-		err := os.Remove(v.Path)
+	if !dir.KeepAllFiles {
+		for _, v := range bins.GarbageFiles {
+			err := os.Remove(v.Path)
+			if err != nil {
+				return err
+			}
+		}
+	} else {
+		deletePath := filepath.Join(archivePath, "delete-me")
+		err = moveFilesShared(bins.GarbageFiles, deletePath)
 		if err != nil {
 			return err
 		}

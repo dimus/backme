@@ -6,5 +6,6 @@ inputDirs:
       - "^backup"
       - "^local"
   - path: /another/dir/to/backup2
+    keepAllFiles: true
     fileRegexPatterns:
       - "\\.dump$"

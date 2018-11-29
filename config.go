@@ -12,6 +12,7 @@ type Config struct {
 }
 
 type InputDir struct {
+	KeepAllFiles      bool
 	Path              string
 	FileRegexPatterns []string
 }

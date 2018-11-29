@@ -29,11 +29,55 @@ Download the [latest release] for your operating system, unzip or untar it,
 copy ``backme`` file to ``/usr/local/bin`` or any other directory registered
 with your ``$PATH``.
 
+## Configuration
+
 Create ``.backme.yml`` file in your ``$HOME`` directory, use a [config example]
 to set it up.
 
-To get better experience make sure your backup files contain the following
-pattern in their name that corresponds to the date they were created:
+The configuration file would look something like this:
+
+```yaml
+---
+outputDir: archive
+inputDirs:
+  - path: /some/dir/to/backup1
+    fileRegexPatterns:
+      - "^backup"
+      - "^local"
+  - path: /another/dir/to/backup2
+    keepAllFiles: true
+    fileRegexPatterns:
+      - "\\.dump$"
+```
+
+``outputDir``
+: An optional setting (the default is ``archive``). It is the name of the backme's archive
+directories. They will be place inside of input directories.
+
+``inputDirs``
+: A list of directories where you keep backup files.
+
+``inputDirs.path``
+: The path to a backup directory
+
+``inputDirs.fileRegexPatterns``
+: A list of regular expression patterns that allows to distinguish one or more
+series of backup files from other files. All files of such patterns will be
+used recursively inside of an input directory.
+
+``inputDirs.keepAllFiles``
+: A optional boolean parameter (default is `false`). If `true` files that would
+be marked for deletion, will be place to 'delete-me' directory.
+
+## Finding out the date of a backup.
+
+There are two ways to learn when backup is done. First is by modification date.
+However moving backup to a new directory will reset this date, so it is not a
+bullet-proof solution.
+
+To get better experience with partitioning files by time make sure your backup
+files contain the following pattern in their name that corresponds to the date
+they were created:
 
 ```text
 yyyy-mm-dd

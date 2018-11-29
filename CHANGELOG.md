@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [v0.3.0]
+
+- Add [#6]: Optionally, do not delete any files, instead move them to an
+            ``archive/delete-me`` directory
+
 ## [v0.2.0]
 
 - Add [#5]: support multiple files regex patterns in one directory. It allows
@@ -19,9 +24,11 @@
 
 This document follows [changelog guidelines]
 
+[v0.3.0]: https://github.com/dimus/backme/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/dimus/backme/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/dimus/backme/tree/v0.1.0
 
+[#6]: https://github.com/dimus/backme/issues/6
 [#5]: https://github.com/dimus/backme/issues/5
 [#4]: https://github.com/dimus/backme/issues/4
 [#3]: https://github.com/dimus/backme/issues/3
