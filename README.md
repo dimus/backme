@@ -68,7 +68,7 @@ used recursively inside of an input directory.
 
 ``inputDirs.keepAllFiles``
 : An optional boolean parameter (default is `false`). If `true` files that would
-be marked for deletion, will be placed to to a ``delete-me`` directory.
+be marked for deletion, will be placed to a ``delete-me`` directory.
 
 ## Finding out the date/time of a backup.
 
